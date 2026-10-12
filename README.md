@@ -1,15 +1,12 @@
 # Middle-Age-Paleogeography
+Reconstructs 1.8–0.8 Ga anorthosites, A-type granites and HT-UHT metamorphic rocks to their formation-age positions and quantifies their distance to subduction zones in Zhu et al., under review. 
 
-This folder contains three scripts that reconstruct the samples in all_data_compiled.xlsx to their
-positions at the time they formed, using the Cao et al. (2024) 1.8 Ga plate model, and then
-(1) export the reconstructed positions and related quantities to Excel, and (2) plot them on
-paleogeographic maps.
-  new_export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
-  new_Fig6_8_paleo_map.py   -> present-day map and single-time paleomaps (Figures 6-8)
-  new_FigS_indi_combine.py  -> 5 x 2 maps in 50-Myr steps, all three rock types together
+This folder contains three scripts that reconstruct the samples in all_data_compiled.xlsx to their positions at the time they formed, using the Cao et al. (2024) 1.8 Ga plate model, and then (1) export the reconstructed positions and related quantities to Excel, and (2) plot them on paleogeographic maps.
+  export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
+  Fig6_8_paleo_map.py   -> present-day map and single-time paleomaps (Figures 6-8)
+  FigS_individual.py    -> 5 x 2 maps in 50-Myr steps, all three rock types together
 
-All three use shared functions in config_paleomap.py and folder paths in paths.py, so these two
-files must be in the same folder as the scripts.
+All three use shared functions in config_paleomap.py and folder paths in paths.py, so these two files must be in the same folder as the scripts.
 
 
 1. SETUP
@@ -79,12 +76,12 @@ The removed and capped samples are listed (by name) in the console when a map sc
 new_export_paleo.py does not remove anything; it reports the check in rotation_exceeds_age.
 
 
-4. new_export_paleo.py
+4. export_paleo.py
 ----------------------
 
 Purpose: one table per rock type with reconstructed positions and distances.
 
-Output: Data/all_data_compi_recons.xlsx, sheets "Anorthosites", "A-type granites",
+Output: Data/exported_file.xlsx, sheets "Anorthosites", "A-type granites",
 "HT-UHT rocks". All input columns are kept and these are added:
 
   plate_id               plate the sample sits on (blank if no location)
@@ -103,26 +100,8 @@ sampled as points about 6 km apart (gplately tessellate_subduction_zones), and t
 distance (Earth radius 6371 km) from the reconstructed sample to the nearest of these points is
 taken. It is the shortest distance in any direction, regardless of trench polarity.
 
-distance_to_plume / which_plume: great-circle distance from the reconstructed sample to the
-plume centres listed in plumes_loc (config_paleomap.py). A plume at time t is used for samples
-with t - 50 < age_ma <= t + 50 Myr; the nearest one is reported. Plume positions are fixed
-paleo-coordinates for that time (not moved with the plates). Samples with no plume in their
-window (roughly younger than 1200 Ma or older than 1800 Ma) are left blank.
 
-  Plume  Time (Ma)  Longitude  Latitude
-  P1     1750, 1650    -82        -2
-  P2     1650          186        32
-  P3     1550         -110        38
-  P4     1450          -94        -8
-  P5_1   1350         -130        -1
-  P5_2   1350         -100       -20
-  P6     1350          -95        20
-  P7     1250         -156        16
-
-If the output file already exists, the three sheets are replaced and any other sheets are kept.
-
-
-5. new_Fig6_8_paleo_map.py
+5. Fig6_8_paleo_map.py
 -------------------------
 
 Purpose: main-text maps (Figures 6-8): a present-day overview of all samples, and paleomaps
@@ -161,7 +140,7 @@ The plume stars of Figures 6-8 are not drawn by this script; their positions are
 section 4 (plumes_loc in config_paleomap.py).
 
 
-6. new_FigS_indi_combine.py
+6. FigS_individual.py
 ---------------------------
 
 Purpose: paleogeographic maps through time, with ALL THREE rock types in every panel.
