@@ -9,7 +9,7 @@ This folder contains three scripts that reconstruct the samples in all_data_comp
 All three use shared functions in config_paleomap.py and folder paths in paths.py, so these two files must be in the same folder as the scripts.
 
 --------
-1. SETUP
+# 1. Setup
 --------
 
 Python 3.11 with these packages (versions used for the figures in brackets):
@@ -28,8 +28,8 @@ The plate model is downloaded automatically by plate-model-manager the first tim
 Plate model: "Cao2024" (Cao et al., 2024, 1.8 Ga - present). Some figure scripts can also be
 switched to "Muller2025" with the model_name setting.
 
-
-2. INPUT DATA: all_data_compiled.xlsx
+------------------------------------
+# 2. Input Data
 ------------------------------------
 
 Three sheets, one per rock type. Columns used by the scripts:
@@ -51,8 +51,8 @@ Three sheets, one per rock type. Columns used by the scripts:
 
 Other columns (references, units, countries, etc.) are carried through unchanged.
 
-
-3. HOW SAMPLES ARE RECONSTRUCTED
+--------------------------------
+# 3. How Samples Are Reconstructed
 --------------------------------
 
 Plate ID: each sample is assigned to the plate whose static polygon contains its present-day
@@ -75,8 +75,8 @@ map time.)
 The removed and capped samples are listed (by name) in the console when a map script runs.
 new_export_paleo.py does not remove anything; it reports the check in rotation_exceeds_age.
 
-
-4. export_paleo.py
+----------------------
+# 4. export_paleo.py
 ----------------------
 
 Purpose: one table per rock type with reconstructed positions and distances.
@@ -100,8 +100,8 @@ sampled as points about 6 km apart (gplately tessellate_subduction_zones), and t
 distance (Earth radius 6371 km) from the reconstructed sample to the nearest of these points is
 taken. It is the shortest distance in any direction, regardless of trench polarity.
 
-
-5. Fig6_8_paleo_map.py
+-------------------------
+# 5. Fig6_8_paleo_map.py
 -------------------------
 
 Purpose: main-text maps (Figures 6-8): a present-day overview of all samples, and paleomaps
@@ -139,8 +139,8 @@ Symbols are the same as in new_FigS_indi_combine.py (section 6).
 The plume stars of Figures 6-8 are not drawn by this script; their positions are listed in
 section 4 (plumes_loc in config_paleomap.py).
 
-
-6. FigS_individual.py
+---------------------------
+# 6. FigS_individual.py
 ---------------------------
 
 Purpose: paleogeographic maps through time, with ALL THREE rock types in every panel.
@@ -166,9 +166,9 @@ blue-white-red). Sample numbers are shown next to the symbols.
 Output: the figure is shown on screen; the plt.savefig line at the end is commented out -
 uncomment it to save to Figures/.
 
-
-7. REFERENCES
--------------
+---------------
+# 7. REFERENCES
+---------------
 
 Plate model: Cao, X., Collins, A.S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D. and
 Müller, R.D. (2024), Earth's tectonic and plate boundary evolution over 1.8 billion years,
