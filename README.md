@@ -4,7 +4,6 @@ This folder contains three scripts that reconstruct the samples in all_data_comp
 positions at the time they formed, using the Cao et al. (2024) 1.8 Ga plate model, and then
 (1) export the reconstructed positions and related quantities to Excel, and (2) plot them on
 paleogeographic maps.
-
   new_export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
   new_Fig6_8_paleo_map.py   -> present-day map and single-time paleomaps (Figures 6-8)
   new_FigS_indi_combine.py  -> 5 x 2 maps in 50-Myr steps, all three rock types together
