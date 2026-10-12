@@ -89,16 +89,6 @@ for k, (ax, age_max) in enumerate(zip(axes.flat, age_tops)):
                        time=map_time, proj=projection,
                        model=model_i, own_age=1,  # each data point is reconstructed to its own age
                        plot_label=1)
-
-    # plumes whose 50-Myr window contains this panel
-    # for name, t, lon, lat in plumes_loc:
-    #     if t - plume_window / 2 < map_time < t + plume_window / 2:
-    #         # P1-P4 yellow, P5-P7 pink; P5 dashed outline
-    #         facecolor = 'yellow' if name in ['P1', 'P2', 'P3', 'P4'] else 'pink'
-    #         linestyle = '--' if name in ['P5_1', 'P5_2'] else '-'
-    #         ax.scatter(lon, lat, marker='*', s=400, facecolor=facecolor, edgecolor='darkred',
-    #                    linestyle=linestyle, transform=ccrs.PlateCarree(), zorder=25)
-
     ax.set_global()
 
     # number of analyses plotted in this window (same selection as plot_dataframe)
@@ -115,38 +105,9 @@ for k, (ax, age_max) in enumerate(zip(axes.flat, age_tops)):
 def marker_handle(marker, label, mfc, mec='k', ms=8):
     return plt.Line2D([0], [0], marker=marker, ls='None', mfc=mfc, mec=mec, ms=ms, label=label)
 
-# handles = [
-#     marker_handle(style_map['anor']['marker'], 'Anorthosites', style_map['anor']['color']),
-#     marker_handle(style_map['anor']['marker'], 'Anorthosites (without area data)', 'w',
-#                   mec=style_map['anor']['color']),
-#     marker_handle(style_map['a-type']['marker'], 'A-type granites', style_map['a-type']['color']),
-#     marker_handle(style_map['a-type']['marker'], 'A-type granites (without area data)', 'w',
-#                   mec=style_map['a-type']['color']),
-#     marker_handle(style_map['t/p']['marker'], 'High-T/P amphibolite-granulite\nfacies metamorphic rocks', 'w'),
-#     marker_handle('*', 'UHT rocks', 'w', ms=12),
-# ]
-# ## symbol size by area (anorthosites and A-type), shown in grey
-# for s, area_lab in [(30, '< 1000'), (70, '1000-5000'), (120, '> 5000')]:
-#     handles.append(marker_handle('s', f'Area {area_lab} km²', 'lightgray', ms=np.sqrt(s)))
-# handles.append(marker_handle('*', 'Plumes P1-P4', 'yellow', mec='darkred', ms=14))
-# handles.append(marker_handle('*', 'Plumes P5-P7', 'pink', mec='darkred', ms=14))
-
-# leg = fig.legend(handles=handles, loc='lower left', bbox_to_anchor=(0.02, 0.0),
-#                  ncol=3, fontsize=9, frameon=False)
-
-# ## T/P colorbar for the metamorphic rocks, to the right of the legend
-# fig.canvas.draw()  # needed to measure the legend
-# lb = leg.get_window_extent().transformed(fig.transFigure.inverted())
-# cax = fig.add_axes([lb.x1 + 0.02, lb.y0 + 0.5 * lb.height, min(0.18, 0.97 - lb.x1 - 0.03), 0.008])
-# sm = plt.cm.ScalarMappable(cmap=plt.get_cmap(style_map['t/p']['color']),
-#                            norm=matplotlib.colors.Normalize(vmin=0, vmax=2500))
-# cbar = fig.colorbar(sm, cax=cax, orientation='horizontal', ticks=[0, 1250, 2500])
-# cbar.set_label('T/P (°C/GPa)', size=9, labelpad=3)
-# cbar.ax.tick_params(labelsize=8, direction='out')
-
 fig.suptitle(f'Each sample reconstructed to its own age, based on {model_name}',
              fontsize=14, fontweight='bold', y=0.99, va='top')
 
-# plt.savefig(fig_path + f'new_FigS2_indi_combine_{age_start}_{age_start - 500}_muller.png', dpi=300, bbox_inches='tight')
+# plt.savefig(fig_path + f'Individual_50Myr_{age_start}_{age_start - 500}_muller.png', dpi=300, bbox_inches='tight')
 
 plt.show()
