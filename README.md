@@ -2,7 +2,7 @@
 Reconstructs 1.8–0.8 Ga anorthosites, A-type granites and HT-UHT metamorphic rocks to their formation-age positions and quantifies their distance to subduction zones in Zhu et al., under review. 
 
 This folder contains three scripts that reconstruct the samples in all_data_compiled.xlsx to their positions at the time they formed, using the Cao et al. (2024) 1.8 Ga plate model, and then (1) export the reconstructed positions and related quantities to Excel, and (2) plot them on paleogeographic maps.
-<br> export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
+    export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
 <br> Fig6_8_paleo_map.py   -> present-day map and single-time paleomaps (Figures 6-8)
 <br> FigS_individual.py    -> 5 x 2 maps in 50-Myr steps, all three rock types together
 
