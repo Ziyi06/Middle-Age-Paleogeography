@@ -41,7 +41,6 @@ for df in [df_anor, df_aty, df_pt]:
     df['rotation_exceeds_age'] = df['plate_max_rotation_ma'] >= df['age_ma']  # False: sample older than its plate's rotations
     df['reconstructed_lon'], df['reconstructed_lat'] = obtain_paleo_coordinates(df, model, df['age_ma'])
     df['dist_subduction_km'] = distance_to_subduction_at_own_age(df, model)
-    df['distance_to_plume'], df['which_plume'] = distance_to_plume(df)  # km, plume name
 
 # --- Export ---
 out_file = data_path + 'all_data_compi_recons.xlsx'
