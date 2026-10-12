@@ -80,25 +80,6 @@ def plot_paleo_map(time=0, age_range=(800, 1800), model_name='Muller2019',
     axes_flat[0].text(0.5, -0.02, f"{abs(lon0):.0f}°{'W' if lon0 < 0 else 'E'}",
             transform=axes_flat[0].transAxes, ha='center', va='top', fontsize=8)
 
-    ## plot in red stars the following four points at 1.59, 1.64, 1.78 and 1.5
-    
-    # special_points = [(40, -115), (19, -165), (8, -77), (-22, -94)] # 1.6 Ga, lat, lon
-    # special_points = [(-82, -2), (186,  32)]  # P1-2 1.65 Ga
-    # special_points = [(-118, 34), (-98, -8)]  # P3-P4, lon, lat at 1.5 Ga
-
-    # special_points1 = [(-90, 23), (-145, 18)]  # P6-P7, lon, lat at 1.3 Ga
-    # special_points2 = [(-125,  -1), (-100, -10)]  # P5 1.3 Ga
-
-    # special_points1 = [(-93, 23), (-143, 18)]  # P6-P7, lon, lat at 1.35 Ga
-    # special_points2 = [(-125,  -1), (-100, -17)]  # P5 1.35 Ga
-
-    # for lon, lat in special_points1:
-    #     axes_flat[0].plot(lon, lat, marker='*', color='pink', mec='darkred', 
-    #                       markersize=25, transform=ccrs.Geodetic(), zorder=30)
-    # for lon, lat in special_points2:
-    #     axes_flat[0].scatter(lon, lat, marker='*', s=625, facecolor='pink', edgecolor='darkred',
-    #             linestyle='--', transform=ccrs.PlateCarree(), zorder=25)
-
     ## Step 2: plot the data on each subplot
        
     ## first plot the anorthosite data on the first subplot
@@ -268,7 +249,7 @@ def plot_paleo_map(time=0, age_range=(800, 1800), model_name='Muller2019',
         ax.set_aspect('auto')
 
     if ifsavefig:
-        plt.savefig(fig_path + 'new_Fig6_paleo_map_'+f'{time}'+'.png', dpi=300, bbox_inches='tight')
+        plt.savefig(fig_path + 'paleo_map_'+f'{time}'+'.png', dpi=300, bbox_inches='tight')
     if ifshow:
         plt.show()
 
@@ -276,10 +257,6 @@ model_name="Cao2024"
 loc_list = [ccrs.Mollweide(central_longitude=140), ccrs.Orthographic(140, 0), 
             ccrs.Orthographic(-125, 15), ccrs.Orthographic(-125, 15),
             ccrs.Orthographic(-125, 15)]
-
-# model_name="Muller2025"  
-# loc_list = [ccrs.Mollweide(central_longitude=140), ccrs.Orthographic(0, -15), 
-#             ccrs.Orthographic(-80, 15), ccrs.Orthographic(-75, 15)]
 
 set1 = [0, [800, 1800], loc_list[0]]  # the present-day map with all samples between 800-1800 Ma
 set2 = [1000, [900, 1100], loc_list[1]]  # the paleo map at 1000 Ma with all samples between 900-1100 Ma
