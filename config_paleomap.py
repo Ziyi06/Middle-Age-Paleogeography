@@ -12,15 +12,6 @@ from sklearn.neighbors import BallTree
 from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
 
 R_EARTH = 6371.0  # km
-plumes_loc = [('P1',   1750,  -82, -2),
-          ('P1',   1650,  -82, -2),
-          ('P2',   1650,  186,  32),   # near Greenland
-          ('P3',   1550, -110,  38),
-          ('P4',   1450,  -94,  -8),
-          ('P5_1', 1350, -130,  -1),
-          ('P5_2', 1350, -100, -20),
-          ('P6',   1350,  -95,  20),
-          ('P7',   1250, -156,  16)]
 
 def make_plate_reconstruction_and_plot(model_name="Muller2019", projection=ccrs.Orthographic(-110, 15), time=50, ax=None):
     # --- 1. Set up the plate reconstruction model and plot topologies ---  
@@ -77,43 +68,6 @@ def create_point_feature(lon, lat):
     feature = pygplates.Feature()
     feature.set_geometry(point)
     return feature
-
-# def obtain_paleo_coordinates(df, model, time):
-#     features = [create_point_feature(lon, lat) for lon, lat in zip(df['longitude'], df['latitude'])]
-
-#     # ✅ Directly pass the list of pygplates.Feature objects
-#     reconstructed_features = model.reconstruct(features, time)
-
-#     # --- 5. Extract paleo-coordinates ---
-#     paleo_lon = []
-#     paleo_lat = []
-
-#     for feature in reconstructed_features:
-#         geom = feature.get_reconstructed_geometry()
-#         if isinstance(geom, pygplates.PointOnSphere):
-#             lat, lon = geom.to_lat_lon()
-#             paleo_lon.append(lon)
-#             paleo_lat.append(lat)
-
-#     # --- 6. Compile results ---
-#     result_df = pd.DataFrame({'present_lon': df['longitude'],
-#         'present_lat': df['latitude'],
-#         'paleo_lon': paleo_lon,
-#         'paleo_lat': paleo_lat,
-#         'sample_id': df['sample_id']})
-#     return paleo_lon, paleo_lat, result_df
-
-# def obtain_paleo_coordinates(df, model, reconstruction_time):
-#     gpts = gplately.Points(model, df['longitude'], df['latitude'])
-#     rlons, rlats = gpts.reconstruct(reconstruction_time, return_array=True)
-
-#     result_df = pd.DataFrame({'present_lon': df['longitude'],
-#             'present_lat': df['latitude'],
-#             'paleo_lon': rlons,
-#             'paleo_lat': rlats})
-#     # print("Reconstructed coordinates at", reconstruction_time, " Ma:")
-#     # print(result_df)
-#     return rlons, rlats
 
 def obtain_paleo_coordinates(df, model, reconstruction_time,
                              lon_col='longitude', lat_col='latitude'):
@@ -211,32 +165,6 @@ def obtain_model(model_name = "Cao2024"):
 
     model = gplately.PlateReconstruction(rotation_model, topology_features, static_polygons)
     return model
-
-
-def distance_to_plume(df, window=100):
-    """Great-circle distance (km) from each sample's position at its own age
-    (reconstructed_lon/lat) to the nearest plume centre in the same time window,
-    i.e. plumes whose map time is within -window/2 to +window/2 of the sample age
-    (map_time - window/2 < age_ma <= map_time + window/2, as in FigS_individual).
-    Returns (distance_km, plume_name); NaN / None when no plume is in the window."""
-    ## Plume centres (same as in FigS_individual.py): (name, map time in Ma, paleo-longitude, paleo-latitude)
-    
-    ages = df['age_ma'].to_numpy(dtype=float)
-    rlon = df['reconstructed_lon'].to_numpy(dtype=float)
-    rlat = df['reconstructed_lat'].to_numpy(dtype=float)
-    dist = np.full(len(df), np.nan)
-    which = np.full(len(df), None, dtype=object)
-
-    for name, t, plon, plat in plumes_loc:
-        in_window = (ages > t - window / 2) & (ages <= t + window / 2) & ~np.isnan(rlon) & ~np.isnan(rlat)
-        if not in_window.any():
-            continue
-        d = nearest_distance_km(rlon[in_window], rlat[in_window], [plon], [plat])
-        idx = np.where(in_window)[0]
-        closer = np.isnan(dist[idx]) | (d < dist[idx])
-        dist[idx[closer]] = d[closer]
-        which[idx[closer]] = name
-    return dist, which
 
 def plate_max_rotation_time(model_name="Cao2024"):
     """Oldest time (Ma) with a rotation for each plate ID in the model's rotation files,
