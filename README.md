@@ -110,21 +110,20 @@ Choose the map with  set = set1 ... set5  near the bottom of the script:
 
 A sample is included when (lower age) < age_ma <= (upper age).
 
-Options of plot_paleo_map (in the call at the bottom of the script):
-  if3plot     1 -> three panels (A anorthosites, B A-type granites, C HT-UHT rocks) with one
-                   combined legend; use with set1. All samples are read directly from
-                   all_data_compiled.xlsx (no plate-rotation check).
-              0 -> 2 x 2 panels for a paleomap: top-left = plate reconstruction only (continents,
-                   coastlines, plate boundaries and subduction zones at the map time), then
-                   anorthosites, A-type granites and HT-UHT rocks, each with its own legend.
-                   Samples are read with get_clean_data, so samples more than 100 Myr older
-                   than their plate's oldest rotation are left out (section 3).
-  own_age     0 -> every sample is reconstructed to the map time (used for Figures 6-8)
-              1 -> every sample is reconstructed to its own age instead
-  plot_label  1 -> sample numbers next to the symbols
-  iflegend    1 -> legends and T/P colorbar
-  ifsavefig   1 -> save to Figures/new_Fig6_paleo_map_<map time>.png (300 dpi)
-  ifshow      1 -> show the figure on screen
+### Options of `plot_paleo_map`
+
+The following options can be adjusted in the function call at the bottom of the script.
+
+| Option | Value | Description |
+|--------|-------|-------------|
+| `if3plot` | `1` | Three panels: (A) anorthosites, (B) A-type granites, and (C) HT-UHT rocks, with one combined legend. Use with `set1`. All samples are read directly from `all_data_compiled.xlsx`, without checking plate-rotation coverage. |
+| `if3plot` | `0` | Four panels (2 × 2) for a paleomap: top-left shows the plate reconstruction only (continents, coastlines, plate boundaries, and subduction zones at the map time); the remaining panels show anorthosites, A-type granites, and HT-UHT rocks, each with its own legend. Samples are read using `get_clean_data`; samples more than 100 Myr older than their plate's oldest available rotation are excluded (Section 3). |
+| `own_age` | `0` | Reconstruct every sample to the map time (used for Figures 6–8). |
+| `own_age` | `1` | Reconstruct every sample to its own formation age. |
+| `plot_label` | `1` | Display sample numbers next to the symbols. |
+| `iflegend` | `1` | Display legends and the T/P colour bar. |
+| `ifsavefig` | `1` | Save the figure to `Figures/new_Fig6_paleo_map_<map time>.png` at 300 dpi. |
+| `ifshow` | `1` | Display the figure on screen. |
 
 The number of samples of each rock type in the chosen age range is printed in the console.
 Symbols are the same as in new_FigS_indi_combine.py (section 6).
@@ -137,29 +136,28 @@ section 4 (plumes_loc in config_paleomap.py).
 
 Purpose: paleogeographic maps through time, with ALL THREE rock types in every panel.
 
-Layout: 5 rows x 2 columns, 50-Myr windows (panel A = first window, ... J = last). Mollweide
-projection centred on 140 E. Each panel's background (continents, coastlines, plate boundaries,
-subduction zones) is drawn at the middle of its window, and each sample is plotted at its
-position at its own age (section 3). Choose the half with:
-  period = 'old'    -> 1800-1300 Ma
-  period = 'young'  -> 1300-800 Ma
-Other settings:
-  model_name     "Cao2024" (default) or "Muller2025"
-  export_counts  True -> also write the number of samples of each rock type in each window to
+Layout: 5 rows x 2 columns, 50-Myr windows (panel A = first window, ... J = last). 
+Mollweide projection centred on 140 E. 
+Each sample is plotted at its
+position at its own age (section 3). 
+Choose the half with:
+-   period = 'old'    -> 1800-1300 Ma
+-   period = 'young'  -> 1300-800 Ma
+
+Other settings: 
+- model_name     "Cao2024" (default) or "Muller2025"
+- export_counts  True -> also write the number of samples of each rock type in each window to
                  Data/counts_indi_combine_<start>_<end>.xlsx (columns: window, map time,
                  Anorthosites, A-type granites, HT-UHT rocks, of which UHT (HUHT), Total).
                  Samples are counted exactly as on the maps (by the time they are plotted at,
                  with a location).
 
-Symbols: anorthosites = blue squares, A-type granites = violet diamonds (both sized by area; open
+- Symbols: anorthosites = blue squares, A-type granites = violet diamonds (both sized by area; open
 symbol = no area data); HT-UHT = circles (HAG) and stars (HUHT), coloured by T/P (0-2500 deg C/GPa,
 blue-white-red). Sample numbers are shown next to the symbols.
 
-Output: the figure is shown on screen; the plt.savefig line at the end is commented out -
-uncomment it to save to Figures/.
-
 ---------------
-# 7. REFERENCES
+# 7. References
 ---------------
 
 Plate model: 
