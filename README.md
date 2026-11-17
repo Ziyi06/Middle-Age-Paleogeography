@@ -1,10 +1,9 @@
 # Middle-Age-Paleogeography
 Reconstructs 1.8-0.8 Ga anorthosites, A-type granites and HT-UHT metamorphic rocks to their formation-age positions and quantifies their distance to subduction zones in Zhu et al., under review. 
 
-This folder contains three scripts that reconstruct the samples in all_data_compiled.xlsx to their positions at the time they formed, using the Cao et al. (2024) 1.8 Ga plate model, and then (1) export the reconstructed positions and related quantities to Excel, and (2) plot them on paleogeographic maps.
-&nbsp; &nbsp; export_paleo.py       -> Excel table of reconstructed positions, plate IDs and distances
-<br> Fig6_8_paleo_map.py   -> present-day map and single-time paleomaps (Figures 6-8)
-<br> FigS_individual.py    -> 5 x 2 maps in 50-Myr steps, all three rock types together
+This folder contains three scripts that reconstruct the samples in all_data_compiled.xlsx to their positions at the time they formed, using the Cao et al. (2024) plate model, and then 
+(1) export the reconstructed positions and related quantities to Excel (export_paleo.py), and 
+(2) plot them on paleogeographic maps (Fig6_8_paleo_map.py and FigS_individual.py)
 
 All three use shared functions in config_paleomap.py and folder paths in paths.py, so these two files must be in the same folder as the scripts.
 
@@ -21,10 +20,8 @@ Steps:
   2. Create a folder called Figures/ next to the scripts (for saved figures).
   3. Edit paths.py so that proj_path points to the folder holding the scripts
      (data_path = proj_path + 'Data/', fig_path = proj_path + 'Figures/').
-  4. Run a script from that folder, e.g.  python new_export_paleo.py
+  4. Run a script from that folder, e.g. export_paleo.py
 
-The plate model is downloaded automatically by plate-model-manager the first time a script runs
-(internet needed once) into a folder called plate-model-repo/ next to the scripts.
 Plate model: "Cao2024" (Cao et al., 2024, 1.8 Ga - present). Some figure scripts can also be
 switched to "Muller2025" with the model_name setting.
 
@@ -73,7 +70,7 @@ with get_clean_data (config_paleomap.py):
 new_FigS_indi_combine.py; new_Fig6_8_paleo_map.py normally reconstructs all samples to one
 map time.)
 The removed and capped samples are listed (by name) in the console when a map script runs.
-new_export_paleo.py does not remove anything; it reports the check in rotation_exceeds_age.
+export_paleo.py does not remove anything; it reports the check in rotation_exceeds_age.
 
 ----------------------
 # 4. export_paleo.py
@@ -104,8 +101,8 @@ taken. It is the shortest distance in any direction, regardless of trench polari
 # 5. Fig6_8_paleo_map.py
 -------------------------
 
-Purpose: main-text maps (Figures 6-8): a present-day overview of all samples, and paleomaps
-of the samples of one age range reconstructed to a single time.
+Purpose: main-text maps (Figures 6-8): paleomaps of the samples of one age range reconstructed to a single time,
+and a present-day overview of all samples (Figure S1).
 
 Choose the map with  set = set1 ... set5  near the bottom of the script:
 
@@ -170,7 +167,9 @@ uncomment it to save to Figures/.
 # 7. REFERENCES
 ---------------
 
-Plate model: Cao, X., Collins, A.S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D. and
+Plate model: 
+Cao, X., Collins, A.S., Pisarevsky, S., Flament, N., Li, S., Hasterok, D. and
 Müller, R.D. (2024), Earth's tectonic and plate boundary evolution over 1.8 billion years,
 Geoscience Frontiers, 15, 101922 ("Cao2024" in plate-model-manager / GPlately).
+
 Software: GPlately and pyGPlates (EarthByte group); plate-model-manager.
