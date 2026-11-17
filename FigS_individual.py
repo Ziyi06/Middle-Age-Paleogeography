@@ -108,6 +108,6 @@ def marker_handle(marker, label, mfc, mec='k', ms=8):
 fig.suptitle(f'Each sample reconstructed to its own age, based on {model_name}',
              fontsize=14, fontweight='bold', y=0.99, va='top')
 
-# plt.savefig(fig_path + f'Individual_50Myr_{age_start}_{age_start - 500}_muller.png', dpi=300, bbox_inches='tight')
+# plt.savefig(fig_path + f'Individual_50Myr_{age_start}_{age_start - 500}.png', dpi=300, bbox_inches='tight')
 
 plt.show()
