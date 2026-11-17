@@ -29,24 +29,25 @@ switched to "Muller2025" with the model_name setting.
 # 2. Input Data
 ------------------------------------
 
-Three sheets, one per rock type. Columns used by the scripts:
+The data used for plotting are in all_data_compiled.xlsx.
+Three sheets, one per rock type. 
+Columns used by the scripts:
 
-  Sheet         Rows  Columns used
-  anorthosite     81  name, age_ma, latitude, longitude, area
-  atype          116  name, age_ma, latitude, longitude, area
-  HT-UHT          58  name, age_ma, latitude, longitude, t_p, cato
+|Sheet         |Rows| Columns used | 
+|--------------|----|------------------------------------------|
+|anorthosite   | 81 | name, age_ma, latitude, longitude, area |
+|atype       |   116 | name, age_ma, latitude, longitude, area|
+|HT-UHT      |    58 | name, age_ma, latitude, longitude, t_p, cato|
 
-  name       sample number, used as the label on maps and plots
-  age_ma     formation age (Ma)
-  latitude,  present-day location (decimal degrees); samples without a location are skipped
-  longitude
-  area       outcrop area (km2) of anorthosites / A-type granites; sets the symbol size
-             (< 1000, 1000-5000, > 5000 km2); blank = plotted as an open symbol
-  t_p        thermal gradient T/P (deg C/GPa) = T (deg C) / P (GPa); colours HT-UHT symbols
-  cato       HT-UHT category: HUHT = ultrahigh-temperature (plotted as a star),
-             HAG = high-T/P amphibolite-granulite facies (plotted as a circle)
-
-Other columns (references, units, countries, etc.) are carried through unchanged.
+| Field | Description |
+|-------|-------------|
+| `name` | Sample number, used as the label on maps and plots. |
+| `age_ma` | Formation age (Ma). |
+| `latitude` | Present-day latitude (decimal degrees). Samples without a location are skipped. |
+| `longitude` | Present-day longitude (decimal degrees). |
+| `area` | Outcrop area (km²) of anorthosites / A-type granites; determines symbol size (< 1,000, 1,000–5,000, or > 5,000 km²). Blank values are plotted as open symbols. |
+| `t_p` | Thermal gradient T/P (°C/GPa), calculated as T (°C) / P (GPa); determines the colours of HT-UHT symbols. |
+| `cato` | HT-UHT category: `HUHT` = ultrahigh-temperature (plotted as a star); `HAG` = high-T/P amphibolite-granulite facies (plotted as a circle). |
 
 --------------------------------
 # 3. How Samples Are Reconstructed
@@ -81,21 +82,14 @@ Purpose: one table per rock type with reconstructed positions and distances.
 Output: Data/exported_file.xlsx, sheets "Anorthosites", "A-type granites",
 "HT-UHT rocks". All input columns are kept and these are added:
 
-  plate_id               plate the sample sits on (blank if no location)
-  plate_max_rotation_ma  oldest rotation time of that plate (Ma)
-  rotation_exceeds_age   True if the plate's rotations reach back to age_ma;
-                         False if the sample is older than its plate's oldest rotation
-                         (also False when there is no location)
-  reconstructed_lon,     position at age_ma (decimal degrees)
-  reconstructed_lat
-  dist_subduction_km     distance to the nearest subduction zone at age_ma (km)
-  distance_to_plume      distance to the nearest plume centre in the same 100-Myr window (km)
-  which_plume            name of that plume (P1-P7)
-
-dist_subduction_km: the model's subduction zones at the sample's age (rounded to 1 Myr) are
-sampled as points about 6 km apart (gplately tessellate_subduction_zones), and the great-circle
-distance (Earth radius 6371 km) from the reconstructed sample to the nearest of these points is
-taken. It is the shortest distance in any direction, regardless of trench polarity.
+| Field | Description |
+|-------|-------------|
+| `plate_id` | Tectonic plate on which the sample is located (blank if no location is available). |
+| `plate_max_rotation_ma` | Oldest rotation time available for that plate (Ma). |
+| `rotation_exceeds_age` | `True` if the plate's rotation model extends back to `age_ma`; `False` if the sample is older than the plate's oldest available rotation, or if no location is available. |
+| `reconstructed_lon` | Reconstructed longitude at `age_ma` (decimal degrees). |
+| `reconstructed_lat` | Reconstructed latitude at `age_ma` (decimal degrees). |
+| `dist_subduction_km` | Distance to the nearest subduction zone at `age_ma` (km). |
 
 -------------------------
 # 5. Fig6_8_paleo_map.py
@@ -106,12 +100,13 @@ and a present-day overview of all samples (Figure S1).
 
 Choose the map with  set = set1 ... set5  near the bottom of the script:
 
-  Set   Map time   Samples shown      Projection
-  set1  0 Ma       800-1800 Ma        Mollweide, centred on 140 E (present-day overview)
-  set2  1000 Ma    900-1100 Ma        Orthographic, centred on 140 E, 0 N
-  set3  1350 Ma    1300-1400 Ma       Orthographic, centred on 125 W, 15 N
-  set4  1500 Ma    1400-1600 Ma       Orthographic, centred on 125 W, 15 N
-  set5  1650 Ma    1600-1700 Ma       Orthographic, centred on 125 W, 15 N
+ | Set | Map time | Samples shown | Projection |
+|-----|----------|---------------|------------|
+| `set1` | 0 Ma | 800–1800 Ma | Mollweide, centred on 140°E (present-day overview) |
+| `set2` | 1000 Ma | 900–1100 Ma | Orthographic, centred on 140°E, 0°N |
+| `set3` | 1350 Ma | 1300–1400 Ma | Orthographic, centred on 125°W, 15°N |
+| `set4` | 1500 Ma | 1400–1600 Ma | Orthographic, centred on 125°W, 15°N |
+| `set5` | 1650 Ma | 1600–1700 Ma | Orthographic, centred on 125°W, 15°N |
 
 A sample is included when (lower age) < age_ma <= (upper age).
 
